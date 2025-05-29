@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Mahasiswa</title>
+</head>
+<body>
+
+    <h3>Data Mahasiswa</h3>
+    <div id="dtmhs"></div>
+
+    <script>
+        const xml = new XMLHttpRequest();
+        xml.open("GET","http://localhost/pertemuan11/webprog-o-pertemuan11/mhsvd.php");
+        xml.send();
+        xml.onload = function(){
+            const dta = JSON.parse(this.responseText);
+            
+            console.log(dta);
+            let tbl = '<table><tr><td>No</td><td>NIM</td><td>NAMA</td></tr>';
+            let no=1;
+            for(i=0;i< dta.length;i++){
+                tbl += '<tr><td>'+no+'</td><td>'+dta[i]["NIM"]+'</td><td>'+dta[i]["NAMA"]+'</td></tr>';
+                no++;
+            }
+            tbl += '</table>';
+            document.getElementById("dtmhs").innerHTML = tbl;
+        };
+    </script>
+    
+</body>
+</html>
