@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,35 +38,37 @@
                 <input class="form-control" type="text" name="txALAMAT" id="txALAMAT">
             </div> 
             <div class="form-group jarak">
-                <button id="cmdSIMPAN" class="btn btn-primary">Simpan</button>
-                <a class="btn btn-warning" href="datamahasiswa.html">Batal</a>
+                <button id="cmdSIMPAN" class="btn btn-outline-primary">Simpan</button>
+                <a class="btn btn-outline-warning" href="datamahasiswa.html">Batal</a>
             </div>      
         </form>
     </div>
     
     <script>
         let frm = document.getElementById("formDataMHS")
-        async function handlesubmit(event){
+
+        async function handleSubmit(){
             event.preventDefault();
             let dta = new FormData(event.target);
+            
             fetch(event.target,{
-                methode: from.methode,
+                method: frm.method,
                 body: dta,
                 headers: {
                     'Accept':'application/json'
                 }
-            }).then(Response=>{
-                if(Response.ok){
+            } ).then(response =>{
+                if(response.ok){
                     form.reset();
                 }else{
-                    alert("Pengiriman Data salah")
+                    alert("Ada kendala pengiriman data ke server");
                 }
-            }
-            ).catch(error => alert("Data error"));
+            } 
+
+            ).catch(error => alert("Terjadi Error"));
         }
 
-        frm.addEventListener("submit", handlesubmit);
-    
+        frm.addEventListener("submit", handleSubmit);
     </script>
 </body>
 </html>
