@@ -12,7 +12,15 @@
 <body>
     <div class="container">
         <h3>Tambah Data Mahasiswa</h3>
-        <form id="formDataMHS" method="POST" action="http://localhost/pertemuan11/tambahdata.php">
+        
+        <div class="alert alert-primary" id="sukses">
+        Penambahan Data Mahasiswa Sukses    
+        </div> 
+        <div class="alert alert-warning" id="gagal">
+        Penambahan Data Mahasiswa Mengalami kegagalan    
+        </div> 
+
+        <form id="formDataMHS" method="POST" action="">
             <div class="form-group">
                 <label class="form-label">NIM</label>
                 <input class="form-control" type="text" name="txNIM" id="txNIM">
@@ -38,37 +46,53 @@
                 <input class="form-control" type="text" name="txALAMAT" id="txALAMAT">
             </div> 
             <div class="form-group jarak">
-                <button id="cmdSIMPAN" class="btn btn-outline-primary">Simpan</button>
-                <a class="btn btn-outline-warning" href="datamahasiswa.html">Batal</a>
+                <button type="submit" id="cmdSIMPAN" class="btn btn-primary">Simpan</button>
+                <a class="btn btn-warning" href="datamahasiswa.html">Batal</a>
             </div>      
         </form>
     </div>
     
     <script>
+        document.getElementById("sukses").style.display="none"
+        document.getElementById("gagal").style.display="none"
+
         let frm = document.getElementById("formDataMHS")
-
-        async function handleSubmit(){
+        frm.addEventListener("submit", function(event){
             event.preventDefault();
-            let dta = new FormData(event.target);
-            
-            fetch(event.target,{
-                method: frm.method,
-                body: dta,
-                headers: {
-                    'Accept':'application/json'
-                }
-            } ).then(response =>{
-                if(response.ok){
-                    form.reset();
+            let nim = frm.txNIM.value
+            let nama = frm.txNAMA.value
+            let tgl = frm.txTGL.value
+            let jkel = frm.txJK.value
+            let alamat = frm.txALAMAT.value
+            let dta = `txNIM=${nim}&txNAMA=${nama}&txTGL=${tgl}&txJK=${jkel}&txALAMAT=${alamat}`
+
+            fetch('server/mhscreatedata.php',{
+                method: 'POST',
+                headers: {'Content-Type':'application/x-www-form-urlencoded',},
+                body: dta
+            })
+            .then(response=>response.json())
+            .then(data=>{
+                console.log("DEBUG: "+data)
+                if(data["error"]==0){
+                    document.getElementById("sukses").style.display="block"
+                    document.getElementById("gagal").style.display="none"
                 }else{
-                    alert("Ada kendala pengiriman data ke server");
+                    document.getElementById("sukses").style.display="none"
+                    document.getElementById("gagal").style.display="block"
                 }
-            } 
+            })
+            .catch(err=>{
+                console.error("DEBUG: ",err)
+                document.getElementById("sukses").style.display="none"
+                document.getElementById("gagal").style.display="block"
+            })
 
-            ).catch(error => alert("Terjadi Error"));
-        }
+            setTimeout(()=>{
+                window.location.href="datamahasiswa.html"
+            },2000)
+        });
 
-        frm.addEventListener("submit", handleSubmit);
     </script>
 </body>
 </html>

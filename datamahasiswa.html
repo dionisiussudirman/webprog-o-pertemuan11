@@ -15,7 +15,7 @@
 
     <script>
         const xml = new XMLHttpRequest();
-        xml.open("GET","http://localhost/pertemuan11/mhsvd.php");
+        xml.open("GET","server/mhsvd.php");
         xml.send();
         xml.onload = function(){
             const dta = JSON.parse(this.responseText);
