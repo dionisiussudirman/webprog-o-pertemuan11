@@ -6,4 +6,5 @@
     define("DBPORT","3306");
     global $koneksi;
 
-    $koneksi = mysqli_connect(DBHOST,DBUSERNAME,DBPASSWORD,DBNAME,DBPORT) or die("Koneksi ke database gagal");
+    $koneksi = mysqli_connect(DBHOST,DBUSERNAME,DBPASSWORD,DBNAME,DBPORT) 
+        or die("Koneksi ke database gagal");

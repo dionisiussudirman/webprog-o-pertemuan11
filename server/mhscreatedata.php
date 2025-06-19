@@ -2,7 +2,7 @@
     include_once("konfigurasi.php");
 
     $hsl["error"] = 1;
-
+    
     if(isset($_POST["txNIM"])){
         $NIM=$_POST["txNIM"];
         $NAMA=$_POST["txNAMA"];
@@ -18,6 +18,5 @@
             $hsl["error"] = 0;
         }
     }
-
-    header("content-type: application/json; charset=utf-8");
+    header("Content-type: application/json; charset=utf-8");
     echo json_encode($hsl);

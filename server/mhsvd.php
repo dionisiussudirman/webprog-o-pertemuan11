@@ -1,6 +1,6 @@
 <?php
     global $koneksi;
-    include_once ("konfigurasi.php");
+    include_once("konfigurasi.php");
 
     $sql = "SELECT NIM, NAMA, ALAMAT, TGL_LAHIR, JENISKEL FROM mhs;";
     $ps = mysqli_query($koneksi, $sql);
@@ -14,5 +14,5 @@
         );
     }
 
-    header("content-type: application/json");
+    header("Content-type: application/json");
     echo json_encode($h);
